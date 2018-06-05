@@ -40,7 +40,6 @@ describe Edge do
     end
 
     it "adds itself to the to_vertex's edges" do
-      p(edge.to_vertex.in_edges)
       expect(to_vertex.in_edges).to include(edge)
     end
 

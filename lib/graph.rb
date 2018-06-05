@@ -8,33 +8,31 @@ class Vertex
     @in_edges = []
     @out_edges = []
   end
-
-  def add_edge_to_to_vertex(edge)
-    in_edges << edge
-  end
-
-  def add_edge_to_from_vertex(edge)
-    out_edges << edge
-  end
-
 end
 
 class Edge
   attr_accessor :from_vertex, :to_vertex, :cost
   def initialize(from_vertex, to_vertex, cost = 1)
-    addEdgesToVertices(from_vertex, to_vertex)
     @from_vertex = from_vertex
     @to_vertex = to_vertex
     @cost = cost
+    add_edge_to_vertices
   end
 
   def destroy!
-
+    delete_edges_from_vertices
+    @from_vertex = nil
+    @to_vertex = nil
   end
 
   private
-  def addEdgesToVertices(from_vertex, to_vertex)
-    from_vertex.add_edge_to_from_vertex(self)
-    to_vertex.add_edge_to_to_vertex(self)
+  def add_edge_to_vertices
+    from_vertex.out_edges << self
+    to_vertex.in_edges << self
+  end
+
+  def delete_edges_from_vertices
+    from_vertex.out_edges.delete(self)
+    to_vertex.in_edges.delete(self)
   end
 end
